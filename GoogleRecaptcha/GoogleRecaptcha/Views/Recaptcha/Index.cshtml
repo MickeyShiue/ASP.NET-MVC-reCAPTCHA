@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<h2>htmlPost</h2>
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
+<form id="htmlform" name="htmlform" action="~/Recaptcha/FormPost" method="post">
+    <input type="text" name="ID" />
+    <br />
+    <input type="text" name="Pwd" />
+    <br />
+    <button class="g-recaptcha"  data-sitekey="6Le_KloUAAAAAPoLeN01lDFWVk5hvLSrgNEsTuuV"  data-callback="htmlsubmit" >送出</button>
+</form>
+
+<hr />
+
+
+
+
+<h2>ajaxPost</h2>
+
+<form id="ajaxform" name="ajaxform">
+    <input type="text" name="ID" />
+    <br />
+    <input type="text" name="Pwd" />
+    <br />
+    <button onclick="ajaxsubmit();">送出</button>
+</form>
+
+<script>
+
+    function htmlsubmit() {
+        $("#htmlform").submit();
+    }
+
+    function ajaxsubmit()
+    {
+        $.ajax({
+            url: "./AjaxPost",
+            type: "POST",
+            data: $("#ajaxform").serialize(),
+            success: function (json) {
+                if (json.Result == true) {
+                    alert("vaild success");
+                } else {
+                    alert("vaild fail");
+                }
+            },
+            error: function () {
+                alert("error");
+            }
+        });
+    }
+</script>
